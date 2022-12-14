@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Upload to Sheets</title>
+</head>
+
+<body>
+    <form id = "form">
+        <h1>Name:</h1>
+        <input type="text">
+        <h1>Message:</h1>
+        <input type="text">
+        <input id="submit" type="submit">
+    </form>
+    <script>
+        const form = document.querySelector("#form");
+        const submitButton = document.querySelector("#submit");
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzhX5Y4IZNMXUxHttpx1JCUXJgia-x5Vw_YpBOjK3ckEsybvHBnhD_IT0mR18J1o7y5vg/exec";
+
+        form.addEventListener('submit', e => {
+            submitButton.disabled = true;
+            e.preventDefault();
+            let requestBody = new FormData(form);
+            fetch(scriptURL, { method: 'POST', body: requestBody })
+                .then(response => {
+                    alert('Success!', response);
+                    submitButton.disabled = false;
+                })
+                .catch(error => {
+                    alert('Error!', error.message);
+                    submitButton.disabled = false;
+
+                }
+                )
+        })
+    </script>
+</body>
+
+</html>
